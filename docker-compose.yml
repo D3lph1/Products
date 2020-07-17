@@ -1,0 +1,29 @@
+version: '3.4'
+
+services:
+  postgres:
+    image: postgres:12.1
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres:/var/lib/postgresql/data
+      - ./docker/postgres/conf:/etc/postgresql/
+    environment:
+      POSTGRES_DB: practice
+      POSTGRES_USER: practice
+      POSTGRES_PASSWORD: practice
+  java:
+    image: java:8
+    ports:
+      - "8080:8080"
+      - "5005:5005"
+    volumes:
+      - ./target:/var/target
+    links:
+      - postgres
+    # command: java -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005 -Djava.security.egd=file:/dev/./urandom -jar /var/target/practice-0.0.1-SNAPSHOT.jar
+    command: java -jar /var/target/practice-0.0.1-SNAPSHOT.jar
+
+# Define persistent volume to avoid PostgreSQL image bug and use Docker on Windows
+volumes:
+  postgres:

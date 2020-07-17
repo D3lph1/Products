@@ -1,0 +1,18 @@
+{
+    "compilerOptions": {
+        "target": "es2015",
+        "lib": ["es2015", "DOM"],
+        // Ensure strict property type inference for `this`
+        "strict": true,
+        "module": "esnext",
+        "moduleResolution": "node",
+        "experimentalDecorators": true,
+        "sourceMap": true,
+        "baseUrl": "./",
+        "paths": {
+            "~/*": ["assets/ts/*"],
+            "@/*": ["assets/components/*"]
+        },
+        "allowSyntheticDefaultImports": true
+    }
+}
