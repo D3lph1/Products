@@ -1,5 +1,6 @@
 package ru.ssau.practice.controller;
 
+import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,7 +14,7 @@ import ru.ssau.practice.service.http.ApiResponse;
 import javax.validation.Valid;
 
 @RestController
-public class BrandController
+public class BrandController extends AbstractController
 {
     private final BrandsListService brandsListService;
 
@@ -28,6 +29,7 @@ public class BrandController
     private final UpdateBrandService updateBrandService;
 
     public BrandController(
+            MessageSource messageSource,
             BrandsListService brandsListService,
             DeleteBrandsService deleteBrandsService,
             GetAllBrandsService getAllBrandsService,
@@ -36,6 +38,7 @@ public class BrandController
             UpdateBrandService updateBrandService
     )
     {
+        super(messageSource);
         this.brandsListService = brandsListService;
         this.deleteProductsService = deleteBrandsService;
         this.getAllBrandsService = getAllBrandsService;
@@ -56,11 +59,11 @@ public class BrandController
         try {
             deleteProductsService.delete(IDs);
 
-            return ResponseEntity.ok(ApiResponse.success().addError(ApiError.success("Brand(s) successfully deleted")));
+            return ResponseEntity.ok(ApiResponse.success().addError(ApiError.success(t("brands.delete.success"))));
         } catch (NotFoundException e) {
             return new ResponseEntity<>(
                     ApiResponse.fail("brand_not_found")
-                            .addError(ApiError.danger("One or more brands not found"))
+                            .addError(ApiError.danger(t("brands.few_not_found")))
                             .add("brands", e.getReason()),
                     HttpStatus.NOT_FOUND
             );
@@ -79,11 +82,11 @@ public class BrandController
         try {
             createBrandService.create(dto);
 
-            return ResponseEntity.ok(ApiResponse.success());
+            return ResponseEntity.ok(ApiResponse.success().addError(ApiError.success(t("brands.create.success"))));
         } catch (BrandAlreadyExistsException e) {
             return new ResponseEntity<>(
                     ApiResponse.fail("brand_already_exists")
-                        .addError(ApiError.danger("Brand with specified name already exists")),
+                        .addError(ApiError.danger(t("brands.name.already_exists"))),
                     HttpStatus.CONFLICT
             );
         }
@@ -97,7 +100,7 @@ public class BrandController
         } catch (BrandNotFoundException e) {
             return new ResponseEntity<>(
                     ApiResponse.fail("brand_not_found")
-                            .addError(ApiError.danger("Brand not found")),
+                            .addError(ApiError.danger(t("brands.not_found"))),
                     HttpStatus.NOT_FOUND
             );
         }
@@ -109,17 +112,17 @@ public class BrandController
         try {
             updateBrandService.update(brandId, dto);
 
-            return ResponseEntity.ok(ApiResponse.success().addError(ApiError.success("Brand has been successfully updated")));
+            return ResponseEntity.ok(ApiResponse.success().addError(ApiError.success(t("brands.update.success"))));
         } catch (BrandNotFoundException e) {
             return new ResponseEntity<>(
                     ApiResponse.fail("brand_not_found")
-                            .addError(ApiError.danger("Brand not found")),
+                            .addError(ApiError.danger(t("brands.not_found"))),
                     HttpStatus.NOT_FOUND
             );
         } catch (BrandAlreadyExistsException e) {
             return new ResponseEntity<>(
                     ApiResponse.fail("brand_already_exists")
-                            .addError(ApiError.danger("Brand with specified name already exists")),
+                            .addError(ApiError.danger(t("brands.name.already_exists"))),
                     HttpStatus.CONFLICT
             );
         }

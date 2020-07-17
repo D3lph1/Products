@@ -61,9 +61,9 @@
             </b-form>
 
             <template v-slot:modal-footer="{ ok, cancel }">
-                <b-button variant="success" @click="createOffer">
+                <button-loading  variant="success" :loading="createOfferLoading" @click="createOffer">
                     OK
-                </b-button>
+                </button-loading>
                 <b-button @click="cancel()">
                     Cancel
                 </b-button>
@@ -120,6 +120,8 @@
         private brands: any[] = [];
 
         private loading: boolean = false;
+
+        private createOfferLoading: boolean = false;
 
         private fields: BvTableFieldArray = [
             {
@@ -206,6 +208,7 @@
         }
 
         private createOffer(): void {
+            this.createOfferLoading = true;
             const offer: OfferTableItem = {
                 id: 0,
                 price: this.price,
@@ -221,7 +224,8 @@
                         this.offers.push(offer);
                         this.offerModal = false;
                     }
-                });
+                })
+                .finally(() => this.createOfferLoading = false);
         }
 
         private formatDate(date: Date): string {

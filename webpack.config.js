@@ -110,7 +110,6 @@ if (process.env.NODE_ENV === 'production') {
     // module.exports.devtool = '#source-map';
     module.exports.devtool = undefined;
 
-    // http://vue-loader.vuejs.org/en/workflow/production.html
     module.exports.plugins = (module.exports.plugins || []).concat([
         new webpack.DefinePlugin({
             'process.env': {
@@ -119,6 +118,7 @@ if (process.env.NODE_ENV === 'production') {
         })
     ]);
 
+    module.exports.mode = 'production';
     module.exports.optimization = {
         minimize: true
     }

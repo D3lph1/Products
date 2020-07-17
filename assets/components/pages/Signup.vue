@@ -140,8 +140,6 @@
                 .then(
                     (response: AxiosResponse<ApiResponse>) => {
                         if (response.data.ok) {
-                            Notificator.clear();
-                            Notificator.success("User successfully registered, now you can login!");
                             this.$router.push({name: 'login'})
                         }
 

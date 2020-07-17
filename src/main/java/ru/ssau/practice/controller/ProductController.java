@@ -1,5 +1,6 @@
 package ru.ssau.practice.controller;
 
+import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,7 +15,7 @@ import ru.ssau.practice.service.product.*;
 import javax.validation.Valid;
 
 @RestController
-public class ProductController
+public class ProductController extends AbstractController
 {
     private final ProductsListService productsListService;
 
@@ -27,6 +28,7 @@ public class ProductController
     private final UpdateProductService updateProductService;
 
     public ProductController(
+            MessageSource messageSource,
             ProductsListService productsListService,
             DeleteProductsService deleteProductsService,
             CreateProductService createProductService,
@@ -34,6 +36,7 @@ public class ProductController
             UpdateProductService updateProductService
     )
     {
+        super(messageSource);
         this.productsListService = productsListService;
         this.deleteProductsService = deleteProductsService;
         this.createProductService = createProductService;
@@ -57,13 +60,13 @@ public class ProductController
             deleteProductsService.delete(IDs);
 
             return new ResponseEntity<>(
-                    ApiResponse.success().addError(ApiError.success("Product(s) successfully deleted")),
+                    ApiResponse.success().addError(ApiError.success(t("products.delete.success"))),
                     HttpStatus.OK
             );
         } catch (NotFoundException e) {
             return new ResponseEntity<>(
                     ApiResponse.fail("product_not_found")
-                            .addError(ApiError.danger("One or more products not found"))
+                            .addError(ApiError.danger(t("products.few_not_found")))
                             .add("products", e.getReason()),
                     HttpStatus.NOT_FOUND
             );
@@ -78,25 +81,25 @@ public class ProductController
 
             return new ResponseEntity<>(
                     ApiResponse.success()
-                            .addError(ApiError.success("Product has been successfully created")),
+                            .addError(ApiError.success(t("products.create.success"))),
                     HttpStatus.OK
             );
         } catch (BrandNotFoundException e) {
             return new ResponseEntity<>(
                     ApiResponse.fail("brand_not_found")
-                            .addError(ApiError.danger("Brand not found")),
+                            .addError(ApiError.danger(t("brands.not_found"))),
                     HttpStatus.NOT_FOUND
             );
         } catch (ProductWithArticleAndBrandAlreadyExistsException e) {
             return new ResponseEntity<>(
                     ApiResponse.fail("product_with_aticle_and_brand_already_exists")
-                            .addError(ApiError.danger("Product with specified article and brand combination already exists")),
+                            .addError(ApiError.danger(t("products.article_brand.already_exists"))),
                     HttpStatus.CONFLICT
             );
         } catch (ProductWithBarcodeAlreadyExistsException e) {
             return new ResponseEntity<>(
                     ApiResponse.fail("product_with_barcode_already_exists")
-                            .addError(ApiError.danger("Product with specified barcode already exists")),
+                            .addError(ApiError.danger(t("products.barcode.already_exists"))),
                     HttpStatus.CONFLICT
             );
         }
@@ -110,7 +113,7 @@ public class ProductController
         } catch (ProductNotFoundException e) {
             return new ResponseEntity<>(
                     ApiResponse.fail("product_not_found")
-                        .addError(ApiError.danger("Product not found")),
+                        .addError(ApiError.danger(t("products.not_found"))),
                     HttpStatus.NOT_FOUND
             );
         }
@@ -122,29 +125,29 @@ public class ProductController
         try {
             updateProductService.update(productId, dto);
 
-            return ResponseEntity.ok(ApiResponse.success().addError(ApiError.success("Product has been successfully updated")));
+            return ResponseEntity.ok(ApiResponse.success().addError(ApiError.success(t("products.update.success"))));
         } catch (ProductNotFoundException e) {
             return new ResponseEntity<>(
                     ApiResponse.fail("product_not_found")
-                            .addError(ApiError.danger("Product not found")),
+                            .addError(ApiError.danger(t("products.not_found"))),
                     HttpStatus.NOT_FOUND
             );
         } catch (BrandNotFoundException e) {
             return new ResponseEntity<>(
                     ApiResponse.fail("brand_not_found")
-                            .addError(ApiError.danger("Brand not found")),
+                            .addError(ApiError.danger(t("brands.not_found"))),
                     HttpStatus.NOT_FOUND
             );
         } catch (ProductWithArticleAndBrandAlreadyExistsException e) {
             return new ResponseEntity<>(
                     ApiResponse.fail("product_with_aticle_and_brand_already_exists")
-                            .addError(ApiError.danger("Product with specified article and brand combination already exists")),
+                            .addError(ApiError.danger(t("products.article_brand.already_exists"))),
                     HttpStatus.CONFLICT
             );
         } catch (ProductWithBarcodeAlreadyExistsException e) {
             return new ResponseEntity<>(
                     ApiResponse.fail("product_with_barcode_already_exists")
-                            .addError(ApiError.danger("Product with specified barcode already exists")),
+                            .addError(ApiError.danger(t("products.barcode.already_exists"))),
                     HttpStatus.CONFLICT
             );
         }

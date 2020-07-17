@@ -1,5 +1,6 @@
 package ru.ssau.practice.controller;
 
+import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,7 +17,7 @@ import ru.ssau.practice.service.product.ProductNotFoundException;
 import javax.validation.Valid;
 
 @RestController
-public class OfferController
+public class OfferController extends AbstractController
 {
     private final GetProductOffersService getProductOffersService;
 
@@ -25,11 +26,13 @@ public class OfferController
     private final DeleteOffersService deleteOffersService;
 
     public OfferController(
+            MessageSource messageSource,
             GetProductOffersService getProductOffersService,
             CreateOfferService createOfferService,
             DeleteOffersService deleteOffersService
     )
     {
+        super(messageSource);
         this.getProductOffersService = getProductOffersService;
         this.createOfferService = createOfferService;
         this.deleteOffersService = deleteOffersService;
@@ -43,7 +46,7 @@ public class OfferController
         } catch (ProductNotFoundException e) {
             return new ResponseEntity<>(
                     ApiResponse.fail("product_not_found")
-                            .addError(ApiError.danger("Product not found")),
+                            .addError(ApiError.danger(t("products.not_found"))),
                     HttpStatus.NOT_FOUND
             );
         }
@@ -57,7 +60,7 @@ public class OfferController
         } catch (ProductNotFoundException e) {
             return new ResponseEntity<>(
                     ApiResponse.fail("product_not_found")
-                        .addError(ApiError.danger("Product not found")),
+                        .addError(ApiError.danger(t("products.not_found"))),
                     HttpStatus.NOT_FOUND
             );
         }
@@ -73,7 +76,7 @@ public class OfferController
         } catch (NotFoundException e) {
             return new ResponseEntity<>(
                     ApiResponse.fail("offer_not_found")
-                            .addError(ApiError.danger("One or more products not found")),
+                            .addError(ApiError.danger(t("products.few_not_found"))),
                     HttpStatus.NOT_FOUND
             );
         }

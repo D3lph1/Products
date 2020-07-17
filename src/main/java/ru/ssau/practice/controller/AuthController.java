@@ -17,19 +17,21 @@ import ru.ssau.practice.service.util.MessageUtil;
 import javax.validation.Valid;
 
 @RestController
-public class AuthController
+public class AuthController extends AbstractController
 {
     private final SignupUserService signupUserService;
 
     private final UserInfoService userInfoService;
 
-    private final MessageSource messageSource;
-
-    public AuthController(SignupUserService signupUserService, UserInfoService userInfoService, MessageSource messageSource)
+    public AuthController(
+            SignupUserService signupUserService,
+            UserInfoService userInfoService,
+            MessageSource messageSource
+    )
     {
+        super(messageSource);
         this.signupUserService = signupUserService;
         this.userInfoService = userInfoService;
-        this.messageSource = messageSource;
     }
 
     @PostMapping(path = "/signup")
@@ -38,11 +40,15 @@ public class AuthController
         try {
             signupUserService.signup(userDTO);
 
-            return new ResponseEntity<>(ApiResponse.success(), HttpStatus.OK);
+            return ResponseEntity.ok(
+                    ApiResponse.success().addError(ApiError.success(t("auth.signup.success")))
+            );
         } catch (UserAlreadyExistsException e) {
-            ApiError error = ApiFormError.danger("email", MessageUtil.retrieveFromSource("auth.signup.user_already_exists", messageSource));
-
-            return new ResponseEntity<>(ApiResponse.fail("user_already_exists").addError(error), HttpStatus.CONFLICT);
+            return new ResponseEntity<>(
+                    ApiResponse.fail("user_already_exists")
+                            .addError(ApiError.danger(t("auth.signup.user_already_exists"))),
+                    HttpStatus.CONFLICT
+            );
         }
     }
 

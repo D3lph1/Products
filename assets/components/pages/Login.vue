@@ -75,9 +75,6 @@
                     (response: AxiosResponse<UserApiResponse>) => {
                         if (response.data.ok) {
                             this.$store.commit('authenticate', {user: response.data.user});
-
-                            Notificator.clear();
-                            Notificator.success("You're welcome!");
                             this.$router.push({name: 'index'});
                         } else {
                             this.loading = false
