@@ -140,7 +140,7 @@ public class ProductController extends AbstractController
             );
         } catch (ProductWithArticleAndBrandAlreadyExistsException e) {
             return new ResponseEntity<>(
-                    ApiResponse.fail("product_with_aticle_and_brand_already_exists")
+                    ApiResponse.fail("product_with_article_and_brand_already_exists")
                             .addError(ApiError.danger(t("products.article_brand.already_exists"))),
                     HttpStatus.CONFLICT
             );

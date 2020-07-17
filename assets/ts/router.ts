@@ -14,6 +14,12 @@ const router = new Router({
 });
 
 router.beforeEach((to, from, next) => {
+    if (typeof to.meta.title_primary === 'undefined') {
+        document.title = 'Welcome'
+    } else {
+        document.title = `${to.meta.title_secondary} | ${to.meta.title_primary}`;
+    }
+
     if (to.name === 'login' || to.name === 'signup') {
         next();
         return;

@@ -15,12 +15,20 @@ const routes: RouteConfig[] = [
     {
         name: 'login',
         path: '/login',
-        component: Login
+        component: Login,
+        meta: {
+            title_primary: 'Auth',
+            title_secondary: 'Login'
+        }
     },
     {
         name: 'signup',
         path: '/signup',
-        component: Signup
+        component: Signup,
+        meta: {
+            title_primary: 'Auth',
+            title_secondary: 'Signup'
+        }
     },
     {
         path: '/',
