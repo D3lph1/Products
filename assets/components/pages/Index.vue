@@ -1,9 +1,9 @@
 <template>
     <div class="index">
         <div class="mr-4">
-            <b-icon class="index__icon mr-2" icon="arrow-right" :variant="hover ? 'dark' : 'primary'" animation="cylon"></b-icon>
+            <b-icon-arrow-right class="index__icon mr-2" :variant="hover ? 'dark' : 'primary'" animation="cylon"></b-icon-arrow-right>
             <router-link to="/products">
-                <b-icon class="index__icon" icon="box" @mouseenter="hover=true" @mouseleave="hover=false"></b-icon>
+                <b-icon-box class="index__icon" @mouseenter="hover=true" @mouseleave="hover=false"></b-icon-box>
             </router-link>
         </div>
         <h1 class="text-left">You're welcome, let's start</h1>

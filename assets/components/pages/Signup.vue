@@ -41,7 +41,7 @@
                             :disabled="disabled"
                             :loading="loading"
                     >
-                        <b-icon icon="person"/>
+                        <b-icon-person></b-icon-person>
                         Create
                     </button-loading>
 

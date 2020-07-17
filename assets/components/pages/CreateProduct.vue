@@ -1,17 +1,17 @@
 <template>
     <div>
         <b-form>
-            <b-form-group>
-                <b-form-input v-model="name" placeholder="Name"></b-form-input>
+            <b-form-group label="Product name:" label-for="product-name">
+                <b-form-input id="product-name" v-model="name" placeholder="Name"></b-form-input>
             </b-form-group>
-            <b-form-group>
-                <b-form-input v-model="article" placeholder="Article"></b-form-input>
+            <b-form-group label="Product article:" label-for="product-article">
+                <b-form-input id="product-article" v-model="article" placeholder="Article"></b-form-input>
             </b-form-group>
-            <b-form-group>
-                <b-form-input v-model="barcode" placeholder="Barcode"></b-form-input>
+            <b-form-group label="Product barcode:" label-for="product-barcode">
+                <b-form-input id="product-barcode" v-model="barcode" placeholder="Barcode"></b-form-input>
             </b-form-group>
-            <b-form-group label="Select brand:" label-for="brand-input">
-                <b-form-select id="brand-input" v-model="brand" :options="brands"></b-form-select>
+            <b-form-group label="Select brand:" label-for="product-brand">
+                <b-form-select id="product-brand" v-model="brand" :options="brands"></b-form-select>
             </b-form-group>
         </b-form>
 
@@ -27,7 +27,7 @@
         >
             <template v-slot:tools>
                 <b-btn size="sm" variant="outline-primary" class="mb-3" @click="offerModal = !offerModal">
-                    <b-icon icon="plus" aria-hidden="true"></b-icon>
+                    <b-icon-plus aria-hidden="true"></b-icon-plus>
                     Add offer
                 </b-btn>
             </template>
@@ -40,7 +40,7 @@
 
             <template v-slot:cell(actions)="data">
                 <b-btn size="sm" variant="outline-danger" @click="deleteItems([data.item])">
-                    <b-icon icon="trash" aria-hidden="true"></b-icon>
+                    <b-icon-trash aria-hidden="true"></b-icon-trash>
                 </b-btn>
             </template>
         </list>

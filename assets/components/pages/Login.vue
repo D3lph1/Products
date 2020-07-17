@@ -27,7 +27,7 @@
                             :disabled="disabled"
                             :loading="loading"
                     >
-                        <b-icon icon="unlock"/>
+                        <b-icon-unlock></b-icon-unlock>
                         Login
                     </button-loading>
 

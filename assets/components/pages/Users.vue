@@ -14,7 +14,7 @@
                     :disabled="data.item.id === $store.getters.getUser.id"
                     @click="data.item.delete([data.item])"
             >
-                <b-icon icon="trash" aria-hidden="true"></b-icon>
+                <b-icon-trash aria-hidden="true"></b-icon-trash>
             </b-btn>
         </template>
     </list>

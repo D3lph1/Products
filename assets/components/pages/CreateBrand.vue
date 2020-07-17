@@ -1,7 +1,7 @@
 <template>
     <b-form>
-        <b-form-group>
-            <b-form-input v-model="name" placeholder="Name"></b-form-input>
+        <b-form-group label="Brand name:" label-for="brand-name">
+            <b-form-input id="brand-name" v-model="name" placeholder="Name"></b-form-input>
         </b-form-group>
         <b-form-group>
             <button-loading class="mt-3" variant="primary" :loading="loading" @click="submit">Create brand</button-loading>

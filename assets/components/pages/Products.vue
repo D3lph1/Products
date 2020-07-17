@@ -11,7 +11,7 @@
             fixed
     >
         <template v-slot:cell(brand)="data">
-            <router-link to="/brands">{{ data.item.brand.name }}</router-link>
+            <router-link :to="{name: 'brands.update', params: {brand: data.item.brand.id}}">{{ data.item.brand.name }}</router-link>
         </template>
     </list>
 </template>

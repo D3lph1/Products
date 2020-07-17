@@ -2,7 +2,7 @@
     <div>
         <b-input-group class="mb-3" v-if="!disableSearch">
             <b-input-group-prepend is-text>
-                <b-icon icon="search"/>
+                <b-icon-search></b-icon-search>
             </b-input-group-prepend>
 
             <b-form-input v-model="filter" debounce="300" :placeholder="searchPlaceholder"></b-form-input>
@@ -20,7 +20,7 @@
                 v-b-tooltip.hover
                 title="You can select few items and process multiple delete"
         >
-            <b-icon icon="trash" aria-hidden="true"></b-icon>
+            <b-icon-trash aria-hidden="true"></b-icon-trash>
             Delete
         </b-btn>
         <b-table
@@ -41,10 +41,10 @@
         >
             <template v-slot:cell(actions)="data">
                 <b-btn size="sm" variant="outline-info" v-if="editRoute !== null" :to="editRoute !== null ? editRoute(data.item) : null">
-                    <b-icon icon="pencil" aria-hidden="true"></b-icon>
+                    <b-icon-pencil aria-hidden="true"></b-icon-pencil>
                 </b-btn>
                 <b-btn size="sm" variant="outline-danger" @click="deleteItems([data.item])">
-                    <b-icon icon="trash" aria-hidden="true"></b-icon>
+                    <b-icon-trash aria-hidden="true"></b-icon-trash>
                 </b-btn>
             </template>
 
