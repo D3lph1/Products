@@ -7,7 +7,7 @@ import javax.persistence.*;
 import java.util.Collection;
 
 @Entity
-@Table(name = "products", uniqueConstraints = {@UniqueConstraint(columnNames = {"brand_id", "article"})})
+@Table(name = "products", uniqueConstraints = {@UniqueConstraint(columnNames = {"article", "brand_id"})})
 public class Product extends Identifiable
 {
     @Column(nullable = false)

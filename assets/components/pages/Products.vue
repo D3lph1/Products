@@ -21,7 +21,6 @@
     import {ApiResponse, PaginationResponse, Product, TableItem} from "~/http";
     import List from "@/common/List.vue";
     import {BvTableFieldArray} from "bootstrap-vue/src/components/table";
-    import {Location} from "vue-router";
 
     interface ProductItem extends Product, TableItem {
     }

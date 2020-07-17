@@ -30,6 +30,7 @@ For Docker setup (in case you already obtain a JAR):
 
 #### Docker
 1. `git clone https://github.com/D3lph1/Products.git`
+2. Change database connection host to `postgres` in the application.properties
 2. Build application to obtain JAR file (see above)
 3. `docker-compose up -d`
 
