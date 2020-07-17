@@ -102,11 +102,11 @@
         }
     })
     export default class CreateProduct extends Vue {
-        private name: string = '1234';
+        private name: string = '';
 
-        private article: string = '123124';
+        private article: string = '';
 
-        private barcode: string = '1234567890123';
+        private barcode: string = '';
 
         private brand: number | null = null;
 
